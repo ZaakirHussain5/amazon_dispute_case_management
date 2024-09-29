@@ -10,19 +10,20 @@ This application is designed to help Amazon sellers manage and dispute return ch
 - **Return Data Input**: Input Amazon return details such as order ID, return reason, and return tracking information.
 - **Dispute Case Management**: Users can create and track dispute cases with links to return details, status updates, and resolution tracking. Dispute cases are created through a modal and updated dynamically using HTMX.
 - **Dynamic Updates**: The application uses HTMX for asynchronous updates, making the user interface responsive and eliminating full page reloads.
-  
+
 ## Project Architecture
 
 The application is divided into several key components:
 - **Backend**: Built with Django, handling orders, returns, and disputes data management.
 - **Frontend**: Integrated with HTMX for smooth asynchronous content loading and Tailwind CSS for UI styling.
 - **Database**: PostgreSQL is used to store orders, returns, and dispute data.
-- **Auto Data Population**: A migration script is written to Auto populate Orders, Returns and Disputes data.
+- **Auto Data Population**: A migration script is written to auto-populate orders, returns, and dispute data.
 - **Containerization**: The entire application is containerized using Docker for easy deployment.
 
 ## Getting Started
 
 ### Prerequisites
+
 Ensure you have the following installed on your system:
 - Docker
 - Docker Compose
@@ -41,12 +42,12 @@ Follow these steps to get the app running locally:
 
 2. Create an `.env` file with the following environment variables:
    ```bash
-    SQL_ENGINE=django.db.backends.postgresql
-    SQL_DATABASE=postgres
-    SQL_USER=postgres
-    SQL_PASSWORD=amazon@123
-    SQL_HOST=db
-    SQL_PORT=5432
+   SQL_ENGINE=django.db.backends.postgresql
+   SQL_DATABASE=postgres
+   SQL_USER=postgres
+   SQL_PASSWORD=amazon@123
+   SQL_HOST=db
+   SQL_PORT=5432
    ```
 
 3. Apply database migrations:
@@ -68,11 +69,11 @@ Follow these steps to get the app running locally:
 
 ### Usage
 
-- **Order Management**: Go to the "Orders" section to by navigating to `/admin` to manage orders. 
-- **Return Management**: Go to the "Returns" section to by navigating to `/admin` to manage returns.
-- **Dispute Case Management**: Dispute Cases appear at base URL.
-    - Click on the Order # to edit an dispute.
-    - Click on Add New Dispute to create a dispute.
+- **Order Management**: Go to the "Orders" section by navigating to `/admin` to manage orders. 
+- **Return Management**: Go to the "Returns" section by navigating to `/admin` to manage returns.
+- **Dispute Case Management**: Dispute cases appear at the base URL.
+    - Click on the Order # to edit a dispute.
+    - Click on "Add New Dispute" to create a dispute.
 
 ## Database Schema
 
