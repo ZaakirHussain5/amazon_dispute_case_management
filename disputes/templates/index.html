@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Dispute App</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* This ensures that the footer sticks to the bottom */
+        body, html {
+          height: 100%;
+        }
+        .content {
+          min-height: calc(100vh - 8rem); /* Adjusts the height excluding footer's height */
+        }
+    </style>
+</head>
+<body class="flex flex-col h-full">
+    {% include 'partials/_navbar.html'%}
+    <div class="content flex-grow"> 
+      {% include 'disputes/disputes.html' with disputes=disputes %}
+      <div class="dispute-form">
+      </div>
+    </div>
+    {% include 'partials/_footer.html' %}
+    <script>
+      function formReset(){
+        const disputeFormDiv = document.querySelector('.dispute-form');
+        document.querySelector('#form').reset();
+        disputeFormDiv.innerHTML = ""
+      }
+
+      function modalInit(){
+        const disputeForm = document.querySelector('.dispute-form');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const closeModalFooter = document.getElementById('closeModalFooter');
+      
+        closeModalButton.addEventListener('click', () => {
+            disputeForm.innerHTML = ""
+        });
+      
+        closeModalFooter.addEventListener('click', () => {
+           disputeForm.innerHTML = ""
+        });
+      }
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+.env
+
+# Django specific
+*.log
+db.sqlite3
+/static/
+/media/
+
+# If you're using PostgreSQL locally (but not in production)
+*.pgdata
+*.pgdump
+
+# macOS
+.DS_Store
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Virtualenv
+venv/
+ENV/
+env/
+
+# Docker
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.sock
+.env.docker
+docker-compose.override.yml
+
+# Node modules if using Node for frontend dependencies
+node_modules/
+
+# Tailwind CSS related files (if using it)
+build/
+dist/
+*.min.css
+*.min.js

@@ -1,0 +1,16 @@
+<tr class="border-b border-gray-400" data-id="{{ dispute.id }}">
+    <td hx-get="{% url 'disputes:edit_dispute' dispute.id %}" 
+        class="py-2 px-4 text-left text-blue-400 cursor-pointer"
+        hx-target=".dispute-form"
+        hx-on:htmx:after-request="modalInit()"
+    >
+        {{ dispute.order.order_id }}
+    </td>
+    <td class="py-2 px-4 text-left">
+        {{ dispute.order.customer_details|linebreaks }}
+    </td>
+    <td class="py-2 px-4 text-left">{{ dispute.order.item_name }}</td>
+    <td class="py-2 px-4 text-left">{{ dispute.return_item.get_return_tracking_display }}</td>
+    <td class="py-2 px-4 text-left">{{ dispute.get_status_display }}</td>
+    <td class="py-2 px-4 text-left">{{ dispute.resolution }}</td>
+</tr>

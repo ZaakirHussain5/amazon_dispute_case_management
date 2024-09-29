@@ -1,0 +1,113 @@
+<div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+    <!-- Modal Content -->
+    <div class="bg-white w-full max-w-2xl mx-auto p-8 rounded-lg shadow-lg">
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">
+            {% if dispute %}
+                Edit Dispute 
+            {% else %}
+                New Dispute
+            {% endif %}
+        </h2>
+        <button id="closeModalButton" class="text-gray-500 hover:text-gray-700 focus:outline-none">&times;</button>
+      </div>
+  
+      <!-- Modal Body (Form) -->
+      <form id="form"
+        {% if dispute %} hx-post="{% url 'disputes:edit_dispute' dispute.id %}" 
+        hx-target="[data-id='{{dispute.id}}']" hx-swap="outerHTML"
+        {% else %} hx-post="{% url 'disputes:new_dispute' %}" 
+        hx-target=".disputes-table tbody" hx-swap="beforeend"
+        {% endif %}
+        hx-on:htmx:after-request="formReset()"
+      >
+      {% csrf_token %}
+        <div class="grid grid-cols-1 gap-6">
+
+          <!-- Order Field -->
+          <div>
+            <label class="block text-gray-700">Order #</label>
+            <select name="order_id" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Select Order</option>
+                {% for order in orders %}
+                <option value="{{order.id}}" 
+                {% if dispute.order.id == order.id %}
+                selected
+                {% endif%}
+                >{{ order }}</option>
+                {% endfor %}
+              </select>
+          </div>
+          
+          <!-- Return Field -->
+          <div>
+            <label class="block text-gray-700">Return</label>
+            <select name="return_id" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Select Return</option>
+                {% for return_item in return_items %}
+                <option value="{{return_item.id}}" 
+                {% if dispute.return_item.id == return_item.id %}
+                selected
+                {% endif%}
+                >{{ return_item }}</option>
+                {% endfor %}
+              </select>
+          </div>
+  
+          <!-- Dispute Type Field -->
+          <div>
+            <label class="block text-gray-700">Dispute Type</label>
+            <select required name="dispute_reason_type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              <option value="">Select Type</option>
+              {% for dispute_type, dispute_type_display  in dispute_reason_type_choices.items %}
+                <option value="{{dispute_type}}" 
+                {% if dispute.dispute_reason_type == dispute_type %}
+                selected
+                {% endif%}
+                >{{ dispute_type_display }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          
+          
+            <!-- Dispute Description -->
+            <div>
+              <label class="block text-gray-700">Description</label>
+              <textarea name="dispute_reason_description" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ dispute.resolution }}</textarea>
+            </div>
+            
+            <!-- Dispute Status Field -->
+            <div>
+                <label class="block text-gray-700">Dispute Status</label>
+                <select name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Select Status</option>
+                {% for dispute_status, dispute_status_display  in dispute_status_choices.items %}
+                    <option value="{{dispute_status}}" 
+                    {% if dispute.status == dispute_status %}
+                    selected
+                    {% endif%}
+                    >{{ dispute_status_display }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Resolution Field -->
+            <div>
+                <label class="block text-gray-700">Resolution</label>
+                <textarea name="resolution" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ dispute.resolution }}</textarea>
+            </div>
+        </div>
+  
+        <!-- Modal Footer -->
+        <div class="flex justify-end mt-6">
+          <button id="closeModalFooter" type="button" class="bg-gray-300 text-white-700 px-4 py-2 rounded-lg mr-2 hover:bg-gray-400">
+            Cancel
+          </button>
+          <button type="submit" class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+</div>

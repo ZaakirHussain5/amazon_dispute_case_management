@@ -1,0 +1,32 @@
+<div class="container mx-auto">
+    <div class="flex justify-between items-center mb-6 mt-4">
+        <h1 class="text-3xl">Current Disputes</h1>
+        <button 
+        hx-get="{% url 'disputes:new_dispute' %}"
+        hx-target=".dispute-form"
+        hx-on:htmx:after-request="modalInit()"
+        class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900">
+          Add New Dispute
+        </button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white disputes-table mb-20">
+        <thead>
+          <tr class="bg-gray-800 text-white">
+            <th class="py-2 px-4 text-left">Order #</th>
+            <th class="py-2 px-4 text-left">Customer Details</th>
+            <th class="py-2 px-4 text-left">Item</th>
+            <th class="py-2 px-4 text-left">Return Tracking</th>
+            <th class="py-2 px-4 text-left">Resolution Status</th>
+            <th class="py-2 px-4 text-left">Resolution</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for dispute in disputes %}
+               {% include 'disputes/dispute_row.html' with dispute=dispute %}
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
