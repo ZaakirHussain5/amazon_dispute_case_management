@@ -17,6 +17,7 @@ The application is divided into several key components:
 - **Backend**: Built with Django, handling orders, returns, and disputes data management.
 - **Frontend**: Integrated with HTMX for smooth asynchronous content loading and Tailwind CSS for UI styling.
 - **Database**: PostgreSQL is used to store orders, returns, and dispute data.
+- **Auto Data Population**: A migration script is written to Auto populate Orders, Returns and Disputes data.
 - **Containerization**: The entire application is containerized using Docker for easy deployment.
 
 ## Getting Started
@@ -34,39 +35,44 @@ Follow these steps to get the app running locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/amazon-dispute-management.git
-   cd amazon-dispute-management
+   git clone https://github.com/your-username/amazon_dispute_case_management.git
+   cd amazon_dispute_case_management
    ```
 
 2. Create an `.env` file with the following environment variables:
    ```bash
-   SECRET_KEY=your_secret_key
-   DEBUG=True
-   DATABASE_URL=postgres://your_user:your_password@localhost:5432/your_db
+    SQL_ENGINE=django.db.backends.postgresql
+    SQL_DATABASE=postgres
+    SQL_USER=postgres
+    SQL_PASSWORD=amazon@123
+    SQL_HOST=db
+    SQL_PORT=5432
    ```
 
-3. Build and run the Docker containers:
-   ```bash
-   docker-compose up --build
-   ```
-
-4. Apply database migrations:
+3. Apply database migrations:
    ```bash
    docker-compose exec web python manage.py migrate
    ```
 
-5. Create a superuser to access the admin panel:
+4. Create a superuser to access the admin panel:
    ```bash
    docker-compose exec web python manage.py createsuperuser
+   ```
+
+5. Build and run the Docker containers:
+   ```bash
+   docker-compose up --build
    ```
 
 6. Access the app at `http://localhost:8000`.
 
 ### Usage
 
-- **Order Management**: Go to the "Orders" section to input and manage Amazon order details.
-- **Return Management**: Navigate to the "Returns" section to input return details.
-- **Dispute Case Management**: Use the "Dispute Cases" section to create, view, and track disputes. New cases are created through a modal, and the list updates dynamically using HTMX.
+- **Order Management**: Go to the "Orders" section to by navigating to `/admin` to manage orders. 
+- **Return Management**: Go to the "Returns" section to by navigating to `/admin` to manage returns.
+- **Dispute Case Management**: Dispute Cases appear at base URL.
+    - Click on the Order # to edit an dispute.
+    - Click on Add New Dispute to create a dispute.
 
 ## Database Schema
 
